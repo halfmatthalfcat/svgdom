@@ -1,6 +1,6 @@
 {
   "name": "@halfmatthalfcat/svgdom",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Straightforward DOM implementation for SVG, HTML and XML",
   "main": "./main-module.js",
   "exports": {
@@ -12,7 +12,7 @@
     "test": "mocha",
     "fix": "npx eslint ./ --fix",
     "lint": "npx eslint ./",
-    "postinstall": "patch-package"
+    "postinstall": "npx patch-package"
   },
   "repository": {
     "type": "git",

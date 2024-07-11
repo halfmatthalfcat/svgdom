@@ -1,0 +1,13 @@
+diff --git a/node_modules/sax/lib/sax.js b/node_modules/sax/lib/sax.js
+index 122ad8e..b8a318b 100644
+--- a/node_modules/sax/lib/sax.js
++++ b/node_modules/sax/lib/sax.js
+@@ -237,7 +237,7 @@
+       typeof Buffer.isBuffer === 'function' &&
+       Buffer.isBuffer(data)) {
+       if (!this._decoder) {
+-        var SD = require('string_decoder').StringDecoder
++        var SD = require('node:string_decoder').StringDecoder
+         this._decoder = new SD('utf8')
+       }
+       data = this._decoder.write(data)

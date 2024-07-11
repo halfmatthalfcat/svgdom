@@ -11,8 +11,7 @@
   "scripts": {
     "test": "mocha",
     "fix": "npx eslint ./ --fix",
-    "lint": "npx eslint ./",
-    "postinstall": "npx patch-package"
+    "lint": "npx eslint ./"
   },
   "repository": {
     "type": "git",

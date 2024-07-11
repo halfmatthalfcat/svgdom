@@ -1,4 +1,4 @@
-import sizeOf from 'image-size'
+import probe from 'probe-image-size'
 import { Event } from '../Event.js'
 import { HTMLElement } from './HTMLElement.js'
 // import { getFileBufferFromURL } from '../../utils/fileUrlToBuffer.js'
@@ -22,16 +22,15 @@ Object.defineProperties(HTMLImageElement.prototype, {
       this.setAttribute('src', val)
       // const url = path.resolve(this.ownerDocument.defaultView.location, val)
       // getFileBufferFromURL(url, (buffer) => {
-      sizeOf(val, (err, size) => {
-        if (err) {
+      probe(val)
+        .then((size) => {
+          this.naturalWidth = size.width
+          this.naturalHeight = size.height
+          this.complete = true
+          this.dispatchEvent(new Event('load'))
+        }).catch(() => {
           this.dispatchEvent(new Event('error'))
-          return
-        }
-        this.naturalWidth = size.width
-        this.naturalHeight = size.height
-        this.complete = true
-        this.dispatchEvent(new Event('load'))
-      })
+        })
       // })
     }
   },

@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import * as fontkit from 'fontkit'
 
 const _config = { fontFamilyMappings: {} }

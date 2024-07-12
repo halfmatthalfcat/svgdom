@@ -1,7 +1,7 @@
 {
-  "name": "@halfmatthalfcat/svgdom",
-  "version": "0.2.5",
-  "description": "Straightforward DOM implementation for SVG, HTML and XML",
+  "name": "@halfmatthalfcat/svgdom-cf",
+  "version": "0.2.7",
+  "description": "Cloudflare Worker compatible svgdom implementation",
   "main": "./main-module.js",
   "exports": {
     "import": "./main-module.js",

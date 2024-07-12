@@ -1,47 +1,34 @@
-import path from 'node:path'
 import * as fontkit from 'fontkit'
-import * as defaults from './defaults.js'
 import { Box, NoBox } from '../other/Box.js'
-import { getConfig, getFonts } from '../config.js'
+import { getFonts } from '../config.js'
 
 export const textBBox = function (text, x, y, details) {
 
   if (!text) return new NoBox()
 
-  const config = getConfig()
-  const preloaded = getFonts()
+  const fonts = Object.entries(getFonts())
+  const fontSize = details.fontSize ?? 16
 
-  const families = (details.fontFamily || defaults.fontFamily).split(/\s*,\s*/)
-  const fontMap = Object.assign({}, defaults.fontFamilyMappings, config.fontFamilyMappings)
-  const fontSize = details.fontSize || defaults.fontSize
-  const fontDir = config.fontDir || defaults.fontDir
-  let fontFamily
-  let font
-
-  for (let i = 0, il = families.length; i < il; ++i) {
-    if (fontMap[families[i]]) {
-      fontFamily = families[i]
-      break
-    }
+  if (!fonts.length) {
+    console.warn('No fonts loaded, using empty bbox.')
+    return new NoBox()
   }
 
-  if (!fontFamily) {
-    fontFamily = defaults.fontFamily
+  const families = (details.fontFamily ?? '').split(/\s*,\s*/)
+
+  if (!families.length) {
+    console.warn('Not font family supplied, using empty bbox.')
+    return new NoBox()
   }
 
-  if (preloaded[fontFamily]) {
-    font = preloaded[fontFamily]
-  } else {
-    const filename = path.join(fontDir, fontMap[fontFamily])
-    try {
-      font = fontkit.openSync(filename)
-    } catch (e) {
-      console.warn(`Could not open font "${fontFamily}" in file "${filename}". ${e.toString()}`)
-      return new NoBox()
-    }
+  const foundFont = families.find((family) => fonts[family])
 
-    preloaded[fontFamily] = font
+  if (!foundFont) {
+    console.warn(`Not loaded font found for supplied families ${families.join(',')}, using empty bbox.`)
+    return new NoBox()
   }
+
+  const font = fontkit.create(foundFont)
 
   const fontHeight = font.ascent - font.descent
   const lineHeight = fontHeight > font.unitsPerEm ? fontHeight : fontHeight + font.lineGap

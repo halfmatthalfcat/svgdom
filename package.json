@@ -25,8 +25,13 @@
     "svgdom",
     "nodejs"
   ],
-  "author": "Ulrich-Matthias Schäfer",
+  "author": "Matt Oliver <mjo2089@gmail.com>",
   "contributors": [
+    {
+      "name": "Ulrich-Matthias Schäfer",
+      "email": "ulima.ums@googlemail.com",
+      "url": "https://svgdotjs.github.io/"
+    },
     {
       "name": "Matt Oliver",
       "email": "mjo2089@gmail.com",

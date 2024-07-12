@@ -1,4 +1,4 @@
-# svgdom
+# svgdom-cf
 
 This is a fork of the original `svgdotjs/svgdom` that is compatible with running in Cloudflare Workers.
 It removes many of the non-supported Node API depdencies and replaces them with CF Worker compabile

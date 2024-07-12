@@ -7,7 +7,7 @@ alternatives, namely around image sizing and font handling.
 ## Install
 
 ```
-npm install @halfmatthalfcat/svgdom
+npm install @halfmatthalfcat/svgdom-cf
 ```
 
 ## Fonts
@@ -42,7 +42,7 @@ In your CF Worker, you will want to import and load the fonts **outside of your 
 invocations.
 
 ```js
-import { setFonts } from "@halfmatthalfcat/svgdom";
+import { setFonts } from "@halfmatthalfcat/svgdom-cf";
 
 import Ariel from "./ariel.woff2";
 import TimesNewRoman from "./tnr.tiff";
@@ -66,7 +66,7 @@ You typically don't use `svgdom` alone, but with `SVG.js` to actually build SVGs
 companion library `@halfmatthalfcat/svgals` that combines this library, a modified `SVG.js` and the usage
 of AsyncLocalStorage to efficiently build SVGs to serve in Workers.
 
-Check out the [@halfmatthalfcat/svgals](https://github.com/halfmatthalfcat/svgals) project for more info.
+Check out the [@halfmatthalfcat/svg-cf](https://github.com/halfmatthalfcat/svg-cf) project for more info.
 
 ## Limitations
 Almost all functions of svg.js work properly with svgdom. However there are a few known limitations:

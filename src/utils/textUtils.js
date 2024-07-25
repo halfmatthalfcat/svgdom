@@ -1,4 +1,3 @@
-import * as fontkit from 'fontkit'
 import { Box, NoBox } from '../other/Box.js'
 import { getFonts } from '../config.js'
 
@@ -6,29 +5,25 @@ export const textBBox = function (text, x, y, details) {
 
   if (!text) return new NoBox()
 
-  const fonts = Object.entries(getFonts())
+  const fonts = getFonts()
   const fontSize = details.fontSize ?? 16
 
   if (!fonts.length) {
-    console.warn('No fonts loaded, using empty bbox.')
     return new NoBox()
   }
 
-  const families = (details.fontFamily ?? '').split(/\s*,\s*/)
+  const family = details.fontFamily
 
-  if (!families.length) {
-    console.warn('Not font family supplied, using empty bbox.')
+  if (!family) {
     return new NoBox()
   }
 
-  const foundFont = families.find((family) => fonts[family])
+  const font = fonts[family]
 
-  if (!foundFont) {
-    console.warn(`Not loaded font found for supplied families ${families.join(',')}, using empty bbox.`)
+  if (!font) {
+    console.warn(`Not loaded font found for family ${family}, using empty bbox.`)
     return new NoBox()
   }
-
-  const font = fontkit.create(foundFont)
 
   const fontHeight = font.ascent - font.descent
   const lineHeight = fontHeight > font.unitsPerEm ? fontHeight : fontHeight + font.lineGap

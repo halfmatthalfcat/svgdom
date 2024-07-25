@@ -1,6 +1,6 @@
 {
   "name": "@halfmatthalfcat/svgdom-cf",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Cloudflare Worker compatible svgdom implementation",
   "main": "./main-module.js",
   "exports": {

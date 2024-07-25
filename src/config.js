@@ -1,25 +1,33 @@
-const fonts = {}
+import * as fontkit from "fontkit";
 
-export const getFonts = () => fonts
-export const setFont = (family, font) => {
-  if (!Buffer.isBuffer(font)) {
-    throw new Error(`Font family ${family} not a Buffer`)
+const _fonts = {};
+
+export const getFonts = () => _fonts;
+export const setFonts = (...fonts) => {
+  for (const font of fonts) {
+    if (!Buffer.isBuffer(font)) {
+      throw new Error(`Must pass Buffer to setFonts`);
+    }
+
+    const loaded = fontkit.create(font);
+
+    if (loaded.postscriptName && !(loaded.postscriptName in _fonts)) {
+      _fonts[loaded.postscriptName] = loaded;
+    }
   }
+};
 
-  fonts[family] = font
-}
-export const setFonts = (map) => {
-  if (typeof map !== 'object') {
-    throw new Error('Must supply an object of string->Buffer to setFonts')
+export const getPostscriptName = (font) => {
+  try {
+    const loaded = fontkit.create(font);
+    return loaded.postscriptName;
+  } catch {
+    return null;
   }
-
-  Object.entries(map).forEach(([ family, font ]) => {
-    setFont(family, font)
-  })
-}
+};
 
 export const config = {
   getFonts,
-  setFont,
-  setFonts
-}
+  setFonts,
+  getPostscriptName,
+};
